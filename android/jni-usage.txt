@@ -1,0 +1,24 @@
+Suppose directory structure:
+
+
+Example 
+   |
+   |-- src
+   |     |-- org
+   |          |-- example 
+   |                   |-- ginger
+   |                          |-- NativeInterface.java
+   |-- jni
+   |      |-- Android.mk
+   |      |-- Application.mk
+   |-- res
+   |
+   |-- AndroidManifest.xml
+   |
+   |-- pom.xml
+
+
+cd src
+javac org/example/ginger/NativeInterface.java
+javah -d ../jni org.example.ginger.NativeInterface
+
