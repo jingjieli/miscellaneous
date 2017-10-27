@@ -33,3 +33,16 @@ double BulkQuote::net_price(std::size_t cnt) const {
 		return cnt * price;
 	}
 }
+
+// What is inherited from base class ? 
+// In principle, a publicly derived class inherits access to every member 
+// of a base class except:
+// * Its constructor and deconstructor
+// * Its assignment operator members (operator=)
+// * Its friends
+// * Its private members
+
+// Even though construcotr and deconstructor are not inherited, they're 
+// automatically called by the constructor and deconstrutor of derived class
+// Unless otherwise specified, the constructor of a derived class calls the 
+// default constructor of its base class (i.e. the one takes no arguments)
