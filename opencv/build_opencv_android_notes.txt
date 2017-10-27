@@ -1,0 +1,71 @@
+(GCC 4.9)
+Usually, cd platforms && sh scripts/cmake_android_arm.sh will do the job.
+
+Important exports:
+export ANDROID_SDK=...
+export ANDROID_NDK=...
+
+Alternatively, modify cmake_android_arm.sh with the following:
+
+-DANDROID_NATIVE_API=21 -DWITH_CUDA=OFF -DWITH_OPENCL=ON -DANDROID_ABI="armeabi-v7a with NEON" -DBUILD_ANDROID_EXAMPLES=ON
+
+But things can go wrong easily.  
+
+To build the java wrapper, Apache Ant needs to be installed. 
+
+--   Java:
+--     ant:                         /usr/local/bin/ant (ver 1.10.1)
+--     Java wrappers:               YES
+--     Java tests:                  YES
+
+
+To build the Android examples successfully, use an older version of Android SDK tools.
+
+e.g. r25.2.3 (https://dl.google.com/android/repository/tools_r25.2.3-macosx.zip)
+
+Related issues:
+
+*************************************************************************
+The "android" command is deprecated.
+For manual SDK, AVD, and project management, please use Android Studio.
+For command-line tools, use tools/bin/sdkmanager and tools/bin/avdmanager
+*************************************************************************
+
+Check the available SDK targets with command:
+./android list target 
+
+Error like:
+
+Failed to get list of installed Android targets.
+
+CMake Warning at cmake/OpenCVDetectAndroidSDK.cmake:205 (message):
+  Can not find any SDK target compatible with: 9 11
+
+can be solved by modifiying cmake/OpenCVDetectAndroidSDK.cmake
+
+# line 98, change "[^\n]+" to "android-[0-9]+"
+string(REGEX MATCHALL "android-[0-9]+" ANDROID_SDK_TARGETS "${ANDROID_SDK_TARGETS}")
+
+--   Android: 
+--     Android ABI:                 armeabi-v7a with NEON
+--     STL type:                    gnustl_static
+--     Native API level:            android-21
+--     SDK target:                  android-21
+--     Android NDK:                 /Tools/Android/ndk-bundle (toolchain: arm-linux-androideabi-4.9)
+--     android tool:                /Tools/Android/tools/android (Android SDK Tools, revision 25.2.3.)
+--     Google Play manager:         NO
+--     Android examples:            YES
+
+(CLANG++ 3.8)
+Create standalone Android toolchain with Android NDK (Tested with android-ndk-r12b):
+
+cd $NDK/build/tools/
+python make_standalone_toolchain.py --arch arm --api 21 --stl libc++ --force --install-dir /tmp/my-android-toolchain/
+
+
+export ANDROID_SDK && ANDROID_STANDALONE_TOOLCHAIN but DO NOT export ANDROID_NDK
+
+
+Extra CMake options used: 
+-DANDROID_STL=c++_static -DANDROID_TOOLCHAIN_NAME=standalone-clang -DWITH_CUDA=OFF -DWITH_OPENCL=ON -DANDROID_ABI="armeabi-v7a with NEON" -DBUILD_ANDROID_EXAMPLES=ON
+
