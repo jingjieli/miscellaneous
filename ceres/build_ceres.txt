@@ -1,0 +1,26 @@
+Build Ceres-Solver 1.12 with GCC and Clang
+
+	(GCC 4.9)
+	
+		The default	
+
+	(Clang 3.8)
+
+		-DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
+
+	Some other options to enable/disable:
+
+		-DMINIGLOG=ON (default OFF)
+
+		-DSUITESPARSE=OFF (default ON)
+
+		-DCXX11=ON (default OFF)
+
+		-DCLAPACK=OFF (default ON)
+
+		-DOPENMP=ON (default OFF)
+
+		-DCMAKE_BUILD_TYPE=Release (default Release: build in Debug mode will get warned)
+
+		-DCMAKE_INSTALL_PREFIX=./install
+
