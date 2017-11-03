@@ -69,3 +69,12 @@ export ANDROID_SDK && ANDROID_STANDALONE_TOOLCHAIN but DO NOT export ANDROID_NDK
 Extra CMake options used: 
 -DANDROID_STL=c++_static -DANDROID_TOOLCHAIN_NAME=standalone-clang -DWITH_CUDA=OFF -DWITH_OPENCL=ON -DANDROID_ABI="armeabi-v7a with NEON" -DBUILD_ANDROID_EXAMPLES=ON
 
+-------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------
+
+Build OpenCV for Linux with Clang:
+
+Tested with Clang: 3.8 Ubuntu 16.04
+
+	cmake -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DWITH_CUDA=OFF -DCMAKE_INSTALL_PREFIX=./install ..

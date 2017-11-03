@@ -1,0 +1,36 @@
+Build Boost With Clang.
+
+Tested with: Boost: 1.63 Clang: 3.8 Ubuntu 16.04
+
+	./bootstrap.sh --with-toolset=clang --prefix=./install_clang
+
+	./b2 toolset=clang cxxflags="-std=c++1y -stdlib=libstdc++" linkflags="-stdlib=libstdc++" --prefix=./install_clang -j 12 stage release
+
+	./b2 install toolset=clang cxxflags="-std=c++1y -stdlib=libstdc++" linkflags="-stdlib=libstdc++" --prefix=./install_clang
+
+Notes:
+
+	1. Headers not found errors (e.g. #include <cstddef>): 
+
+		sudo apt-get install libc++-dev
+
+	2. Error like:
+
+		*******************************
+		/usr/include/c++/v1/string:1938:44: error: 'basic_string<_CharT, _Traits, _Allocator>' is missing exception specification
+      		'noexcept(is_nothrow_copy_constructible<allocator_type>::value)'
+		basic_string<_CharT, _Traits, _Allocator>::basic_string(const allocator_type& __a)
+                                           ^
+		*******************************
+
+	   is probably a bug in libc++, also refer to:
+
+		https://lists.boost.org/Archives/boost/2017/03/233218.php
+
+		https://stackoverflow.com/questions/37096062/get-a-basic-c-program-to-compile-using-clang-on-ubuntu-16/38385967#38385967
+
+		https://bugs.launchpad.net/ubuntu/+source/libc++/+bug/1610168
+
+	   that's why we set -stdlib=libstdc++ instead -stdlib=libc++
+
+		 
