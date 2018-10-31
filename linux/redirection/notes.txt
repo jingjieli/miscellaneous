@@ -1,0 +1,24 @@
+* Redirect standard output
+  ls -l /usr/bin/ > ls-output.txt (overwrite)
+  ls -l /usr/bin/ >> ls-output.txt (append)
+  
+* Redirect standard error
+  ls -l /bin/usr/ 2> ls-error.txt
+
+* Redirect both standard output and error
+  ls -l /bin/usr/ > ls-output.txt 2>&1 (old shell)
+  ls -l /bin/usr/ &> ls-output.txt (new shell, overwrite)
+  ls -l /bin/usr/ &>> ls-output.txt (new shell, append)
+
+* Discard unwanted standard output
+  ls -l /bin/usr/ 2> /dev/null/
+
+
+* Redirect standard input
+  cat > write-something.txt (Ctrl-D to end)
+  cat < write-something.txt (use txt as input)
+
+* Print lines with matched pattern
+  ls /bin/ /usr/bin/ | sort | uniq | grep zip 
+  (-i: ignore case -v: print lines that don't match)
+
